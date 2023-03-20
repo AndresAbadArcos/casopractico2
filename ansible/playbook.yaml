@@ -1,0 +1,14 @@
+---
+- name: 'Caso Practico 2'
+  hosts: webservers
+  remote_user: admin
+  become: true
+  tasks:
+    - name: 'Task 1. Instalacion de paquetes'
+      include_tasks: tasks/instalacion_paquetes.yaml
+    - name: 'TasK 2. Configuración TLS'
+      include_tasks: tasks/configuracion_tls.yaml
+    - name: 'Task 3. Despliegue y configuracion de Apache'
+      include_tasks: tasks/despliegue_apache.yaml
+    - name: 'Task 4. Generamos la imagen de contenedor y la desplegamos en registry'
+      include_tasks: tasks/subida_contenedor.yaml

@@ -1,0 +1,28 @@
+- name: Copiamos el Containerfile
+  ansible.builtin.copy:
+    src: /home/andresabadarcos/casopractico2/ansible/files/Containerfile
+    dest: /usr/local/apache2
+
+- name: Realizamos login en el registry
+  containers.podman.podman_login:
+    username: containerRegistryAndresAbad
+    password: 'SVZdetQM+BQUJBKZiVRcmkN9g5Z4Jkfs+xyzkiCOOJ+ACRBlUvcl'
+    registry: containerregistryandresabad.azurecr.io
+
+- name: Copiamos el script
+  ansible.builtin.copy:
+    src: /home/andresabadarcos/casopractico2/ansible/files/imagen.sh
+    dest: /usr/local/apache2
+
+- name: Cambiamos propietario, grupo y permisos al directorio apache2
+  ansible.builtin.file:
+    path: /usr/local/apache2
+    state: directory
+    recurse: yes
+    owner: azureuser
+    group: azureuser
+    mode: '0755'
+
+# Script para creacion de imagen de contenedor y subida al registry
+- name: Ejecutamos el script
+  command: /usr/local/apache2/imagen.sh

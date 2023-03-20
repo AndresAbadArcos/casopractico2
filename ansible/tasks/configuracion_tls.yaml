@@ -1,0 +1,25 @@
+- name: Creamos el directorio de ficheros
+  file:
+    path: /usr/local/apache2
+    state: directory
+
+- name: Generamos la key correspondiente para el certificado
+  community.crypto.openssl_privatekey:
+    path: /usr/local/apache2/localhost.key
+    size: 2048
+
+- name: Generamos el csr del certificado
+  community.crypto.openssl_csr:
+    path: /usr/local/apache2/localhost.csr
+    privatekey_path: /usr/local/apache2/localhost.key
+    country_name: ES
+    organization_name: UNIR
+    email_address: andres.abad626@comunidadunir.net
+    common_name: casopractico2
+
+- name: Generamos el certificado
+  community.crypto.x509_certificate:
+    path: /usr/local/apache2/localhost.crt
+    privatekey_path: /usr/local/apache2/localhost.key
+    csr_path: /usr/local/apache2/localhost.csr
+    provider: selfsigned

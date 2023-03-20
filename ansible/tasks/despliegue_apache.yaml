@@ -1,0 +1,37 @@
+- name: Copiamos el fichero httpd
+  ansible.builtin.copy:
+    src: /home/andresabadarcos/casopractico2/ansible/files/httpd.conf
+    dest: /etc/httpd/conf
+
+- name: Creamos el directorio de ficheros htdocs
+  file:
+    path: /usr/local/apache2/htdocs
+    state: directory
+
+- name: Cambiamos propietario, grupo y permisos al directorio apache2
+  ansible.builtin.file:
+    path: /usr/local/apache2
+    state: directory
+    recurse: yes
+    owner: azureuser
+    group: azureuser
+    mode: '0755'
+
+- name: Copiamos el fichero index.html 
+  ansible.builtin.copy:
+    src: /home/andresabadarcos/casopractico2/ansible/files/index.html
+    dest: /usr/local/apache2/htdocs
+
+- name: Copiamos el fichero htpasswd encriptado 
+  ansible.builtin.copy:
+    src: /home/andresabadarcos/casopractico2/ansible/files/htpasswd
+    dest: /usr/local/apache2
+
+- name: Copiamos el script apache_up.sh 
+  ansible.builtin.copy:
+    src: /home/andresabadarcos/casopractico2/ansible/files/apache_up.sh
+    dest: /usr/local/apache2
+
+# Script para levantar apache en la maquina virtual
+- name: Ejecutamos el script para levantar apache
+  command: /usr/local/apache2/apache_up.sh

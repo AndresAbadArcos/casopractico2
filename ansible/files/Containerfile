@@ -1,0 +1,6 @@
+FROM docker.io/httpd:latest
+COPY /htdocs/index.html /usr/local/apache2/htdocs/
+COPY /etc/httpd/conf/httpd.conf /etc/httpd/conf/
+COPY htpasswd /usr/local/apache2/
+COPY localhost.key /usr/local/apache2/
+COPY localhost.crt /usr/local/apache2/

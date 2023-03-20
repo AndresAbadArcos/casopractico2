@@ -1,0 +1,27 @@
+- name: Instalamos la ultima version de Apache
+  ansible.builtin.yum:
+    name: httpd
+    state: latest
+
+- name: Instalamos la ultima version de OpenSSL
+  ansible.builtin.yum:
+    name: openssl
+    state: latest
+
+- name: Instalamos la ultima version de Podman
+  ansible.builtin.yum:
+    name: podman
+    state: latest
+
+- name: Instalamos la ultima version de Skopeo
+  ansible.builtin.yum:
+    name: skopeo
+    state: latest
+
+- name: Instalamos la ultima version de ModSSL 
+  ansible.builtin.yum:
+    name: mod_ssl
+    state: latest
+
+
+
